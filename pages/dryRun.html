@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodePal - Code Analysis</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <select id="languageSelect" class="language-select">
+                <option value="cpp">C++</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="javascript">JavaScript</option>
+                <option value="c">C</option>
+            </select>
+            <button id="runCode" class="btn-run">Run Analysis</button>
+            <button id="clearCode" class="btn-clear">Clear</button>
+        </div>
+
+        <div class="grid">
+            <!-- Code Input Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Code Input</h2>
+                </div>
+                <div class="card-body">
+                    <div id="codeInput"></div>
+                </div>
+            </div>
+
+            <!-- Analysis Results Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Analysis Results</h2>
+                </div>
+                <div class="card-body">
+                    <div id="analysisSteps"></div>
+                </div>
+                <div class="complexity-info">
+                    <div class="complexity-item">
+                        <span class="complexity-label">Time Complexity:</span>
+                        <span id="timeComplexity" class="complexity-value">-</span>
+                    </div>
+                    <div class="complexity-item">
+                        <span class="complexity-label">Space Complexity:</span>
+                        <span id="spaceComplexity" class="complexity-value">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/dryRun.js"></script>
+</body>
+</html> 
