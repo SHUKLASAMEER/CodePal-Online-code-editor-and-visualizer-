@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Learning</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="animation-section" style="padding-top: 120px;">
+        <div class="animation-container">
+            <div class="animation-title">
+                <h2>Test Learning</h2>
+                <p>Testing if JavaScript loads properly.</p>
+            </div>
+
+            <!-- Topic Navigation Tabs -->
+            <div class="topic-tabs">
+                <button class="topic-tab active" data-topic="arrays">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Arrays</span>
+                </button>
+            </div>
+
+            <!-- Arrays Topic Content -->
+            <div class="topic-content active" id="arrays-content">
+                <div class="animation-stage">
+                    <div class="code-display" id="codeDisplay">
+                        <!-- Code lines will be added dynamically -->
+                    </div>
+                    <div class="array-container" id="arrayContainer">
+                        <!-- Array elements will be added dynamically -->
+                    </div>
+                </div>
+
+                <div class="controls" style="justify-content:center; gap: 12px;">
+                    <input id="valueInput" type="number" placeholder="value" style="background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 0.6rem 0.8rem; border-radius: 6px;" />
+                    <input id="indexInput" type="number" placeholder="index" style="background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 0.6rem 0.8rem; border-radius: 6px; width: 120px;" />
+                    <button id="btnInsert"><i class="fa fa-plus"></i> Insert</button>
+                    <button id="btnDelete"><i class="fa fa-trash"></i> Delete</button>
+                    <button id="btnUpdate"><i class="fa fa-pen"></i> Update</button>
+                    <button id="btnReset"><i class="fa fa-rotate"></i> Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Content Section -->
+    <section class="features-section" id="topicExplanation">
+        <!-- Content will be dynamically loaded based on selected topic -->
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        console.log('Test script loaded');
+        
+        // Simple test to see if elements exist
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            console.log('Array container:', document.getElementById('arrayContainer'));
+            console.log('Code display:', document.getElementById('codeDisplay'));
+            console.log('Value input:', document.getElementById('valueInput'));
+            console.log('Insert button:', document.getElementById('btnInsert'));
+        });
+    </script>
+    <script src="scripts/learning-topics.js"></script>
+</body>
+</html>
