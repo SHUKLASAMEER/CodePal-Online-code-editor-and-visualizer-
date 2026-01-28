@@ -1,5 +1,7 @@
 const express = require('express');
-const User = require('../models/User');
+const MongooseUser = require('../models/user');
+const FileUser = require('../models/userFile');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const router = express.Router();
@@ -34,16 +36,27 @@ router.post('/register', async (req, res) => {
     }
 
     // Check if user already exists
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    let existingUser = null;
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      existingUser = await MongooseUser.findOne({ $or: [{ email }, { username }] });
+    } else {
+      existingUser = await FileUser.findOne({ email }) || await FileUser.findOne({ username });
+    }
     if (existingUser) {
       return res.status(400).json({
         message: 'User already registered with this email or username.'
       });
     }
 
-    // Create new user
-    const user = new User({ username, email, password });
-    await user.save();
+    // Create new user (use MongoDB if available, otherwise file-based)
+    let user;
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      user = new MongooseUser({ username, email, password });
+      await user.save();
+    } else {
+      user = new FileUser({ username, email, password });
+      await user.save();
+    }
 
     // Generate JWT token
     const token = jwt.sign(
@@ -53,7 +66,7 @@ router.post('/register', async (req, res) => {
     );
 
     // Set session
-    req.session.userId = user._id;
+    req.session.userId = user._id || user._id;
     req.session.username = user.username;
 
     res.status(201).json({
@@ -79,9 +92,13 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const normalizedEmail = (email || '').trim().toLowerCase();
-
     // Find user by email (stored lowercase in DB)
-    const user = await User.findOne({ email: normalizedEmail });
+    let user = null;
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      user = await MongooseUser.findOne({ email: normalizedEmail });
+    } else {
+      user = await FileUser.findOne({ email: normalizedEmail });
+    }
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }

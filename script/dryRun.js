@@ -56,7 +56,7 @@ class CodeAnalyzer {
         this.outputArea.innerHTML = this.createOutputLine('Analyzing your code. This may take a moment...');
 
         try {
-            const response = await fetch('http://localhost:3000/api/analyze', {
+            const response = await fetch('/api/analyze', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

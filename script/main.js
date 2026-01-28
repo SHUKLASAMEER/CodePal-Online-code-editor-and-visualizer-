@@ -142,8 +142,31 @@ function showLoginModal() {
 }
 
 function showRegisterModal() {
+    // If login modal is open, hide it first
+    const loginEl = document.getElementById('loginModal');
+    const loginInstance = loginEl ? bootstrap.Modal.getInstance(loginEl) : null;
+    if (loginInstance) loginInstance.hide();
+
     const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
     registerModal.show();
+}
+
+function switchToRegister() {
+    const loginEl = document.getElementById('loginModal');
+    const registerEl = document.getElementById('registerModal');
+    const loginInstance = loginEl ? bootstrap.Modal.getInstance(loginEl) : null;
+    if (loginInstance) loginInstance.hide();
+    const reg = new bootstrap.Modal(registerEl);
+    reg.show();
+}
+
+function switchToLogin() {
+    const registerEl = document.getElementById('registerModal');
+    const loginEl = document.getElementById('loginModal');
+    const regInstance = registerEl ? bootstrap.Modal.getInstance(registerEl) : null;
+    if (regInstance) regInstance.hide();
+    const log = new bootstrap.Modal(loginEl);
+    log.show();
 }
 
 async function handleLogin(e) {
@@ -152,11 +175,12 @@ async function handleLogin(e) {
     const password = document.getElementById('loginPassword').value.trim();
 
     try {
-        const response = await fetch('http://localhost:3000/api/auth/login', {
+        const response = await fetch('/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'same-origin',
             body: JSON.stringify({ email, password }),
         });
 
@@ -190,11 +214,12 @@ async function handleRegister(e) {
     }
 
     try {
-        const response = await fetch('http://127.0.0.1:3000/api/auth/register', {
+        const response = await fetch('/api/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'same-origin',
             body: JSON.stringify({ username, email, password }),
         });
 
@@ -219,6 +244,7 @@ async function handleLogout() {
     try {
         await fetch('/api/auth/logout', {
             method: 'POST',
+            credentials: 'same-origin',
         });
         currentUser = null;
         localStorage.removeItem('token');
@@ -233,7 +259,7 @@ async function checkAuthStatus() {
     const token = localStorage.getItem('token');
     if (token) {
         try {
-            const response = await fetch('/api/auth/me');
+            const response = await fetch('/api/auth/me', { credentials: 'same-origin' });
             if (response.ok) {
                 const data = await response.json();
                 currentUser = data.user;
