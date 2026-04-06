@@ -10,6 +10,7 @@ let userStats = {
     points: 0
 };
 
+
 // Challenge Database
 const challenges = {
     beginner: [
@@ -413,6 +414,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateStatsDisplay();
 });
 
+// (No Ace automatic initialization here — restoring original behavior)
+
 // Load user statistics
 function loadUserStats() {
     const saved = localStorage.getItem('practiceStats');
@@ -494,6 +497,8 @@ function loadChallenge(difficulty) {
     document.getElementById('codeEditor').value = randomChallenge.starterCode[language];
 }
 
+// (sidebar helper removed to restore original file state)
+
 // Language change handler
 document.getElementById('languageSelect').addEventListener('change', (e) => {
     if (currentChallenge) {
@@ -510,6 +515,7 @@ function showHint(hintNumber) {
     }
 }
 
+// Run code function
 // Run code function
 function runCode() {
     const code = document.getElementById('codeEditor').value;
@@ -539,6 +545,7 @@ function simulateCodeExecution(code) {
     }
 }
 
+// Submit solution
 // Submit solution
 function submitSolution() {
     const code = document.getElementById('codeEditor').value;
@@ -584,6 +591,7 @@ function submitSolution() {
     }, 2000);
 }
 
+// Test custom input
 // Test custom input
 function testCustomInput() {
     const code = document.getElementById('codeEditor').value;
