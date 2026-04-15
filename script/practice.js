@@ -436,65 +436,193 @@ function updateStatsDisplay() {
     document.getElementById('userLevel').textContent = userStats.userLevel;
 }
 
-// Practice Mode Selection Functions
-function startCodeChallenges() {
-    document.getElementById('difficultySection').style.display = 'block';
-    document.querySelector('.practice-modes').style.display = 'none';
+function hidePracticeSections() {
+    const sectionIds = [
+        'difficultySection',
+        'challengePickerSection',
+        'challengeInterface',
+        'customTestingInterface',
+        'timeTrialInterface'
+    ];
+
+    sectionIds.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.style.display = 'none';
+        }
+    });
+}
+
+function switchPracticeView(sectionId = null, showModes = false) {
+    if (timerInterval && sectionId !== 'timeTrialInterface') {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+
+    hidePracticeSections();
+    document.querySelector('.practice-modes').style.display = showModes ? 'block' : 'none';
+
+    if (sectionId) {
+        const activeSection = document.getElementById(sectionId);
+        if (activeSection) {
+            activeSection.style.display = 'block';
+        }
+    }
+
     window.scrollTo(0, 0);
 }
 
+function formatDifficultyName(difficulty) {
+    return difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+}
+
+// Practice Mode Selection Functions
+function startCodeChallenges() {
+    switchPracticeView('difficultySection');
+}
+
 function startTimeTrials() {
-    document.getElementById('timeTrialInterface').style.display = 'block';
-    document.querySelector('.practice-modes').style.display = 'none';
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+
+    switchPracticeView('timeTrialInterface');
     startTimer();
     loadTimeTrialProblem();
 }
 
 function startCustomTesting() {
-    document.querySelector('.practice-modes').style.display = 'none';
-    document.getElementById('customTestingInterface').style.display = 'block';
+    switchPracticeView('customTestingInterface');
     loadCustomTestingInterface();
 }
 
 // Difficulty Selection
 function selectDifficulty(difficulty) {
     currentDifficulty = difficulty;
-    loadChallenge(difficulty);
-    document.getElementById('difficultySection').style.display = 'none';
-    document.getElementById('challengeInterface').style.display = 'block';
+    currentChallenge = null;
+    renderChallengePicker(difficulty);
+    switchPracticeView('challengePickerSection');
+}
+
+function renderChallengePicker(difficulty) {
+    const challengeList = challenges[difficulty] || [];
+    const challengePickerTitle = document.getElementById('challengePickerTitle');
+    const challengePickerSubtitle = document.getElementById('challengePickerSubtitle');
+    const challengePickerGrid = document.getElementById('challengePickerGrid');
+    const difficultyName = challengeList[0]?.difficulty || formatDifficultyName(difficulty);
+
+    challengePickerTitle.textContent = `${difficultyName} Challenges`;
+    challengePickerSubtitle.textContent = `Choose one of the ${challengeList.length} available challenge${challengeList.length === 1 ? '' : 's'} to open the current coding interface.`;
+    challengePickerGrid.innerHTML = '';
+
+    if (!challengeList.length) {
+        challengePickerGrid.innerHTML = `
+            <div class="challenge-picker-empty">
+                No challenges are available for this difficulty yet.
+            </div>
+        `;
+        return;
+    }
+
+    challengeList.forEach((challenge, index) => {
+        const challengeCard = document.createElement('button');
+        challengeCard.type = 'button';
+        challengeCard.className = `challenge-picker-card ${difficulty}`;
+        challengeCard.innerHTML = `
+            <div class="challenge-picker-card-top">
+                <span class="challenge-picker-label">Challenge ${index + 1}</span>
+                <span class="challenge-picker-launch">Open <i class="fas fa-arrow-right"></i></span>
+            </div>
+            <h3>${challenge.title}</h3>
+            <div class="challenge-picker-meta">
+                <span class="difficulty-badge">${challenge.difficulty}</span>
+                <span class="points-badge">${challenge.points} pts</span>
+                <span class="time-badge">${challenge.time} min</span>
+            </div>
+        `;
+        challengeCard.addEventListener('click', () => openChallenge(difficulty, index));
+        challengePickerGrid.appendChild(challengeCard);
+    });
+}
+
+function backToDifficultySelection() {
+    switchPracticeView('difficultySection');
+}
+
+function backToChallengePicker() {
+    if (!currentDifficulty) {
+        switchPracticeView('difficultySection');
+        return;
+    }
+
+    renderChallengePicker(currentDifficulty);
+    switchPracticeView('challengePickerSection');
+}
+
+function openChallenge(difficulty, challengeIndex) {
+    const challenge = challenges[difficulty]?.[challengeIndex];
+
+    if (!challenge) {
+        return;
+    }
+
+    currentDifficulty = difficulty;
+    loadChallenge(challenge);
+    switchPracticeView('challengeInterface');
 }
 
 // Load Challenge
-function loadChallenge(difficulty) {
-    const challengeList = challenges[difficulty];
-    const randomChallenge = challengeList[Math.floor(Math.random() * challengeList.length)];
-    currentChallenge = randomChallenge;
-    
+function loadChallenge(challenge) {
+    currentChallenge = challenge;
+
     // Update challenge display
-    document.getElementById('challengeTitle').textContent = randomChallenge.title;
-    document.getElementById('challengeDifficulty').textContent = randomChallenge.difficulty;
-    document.getElementById('challengePoints').textContent = randomChallenge.points + ' pts';
-    document.getElementById('challengeTime').textContent = randomChallenge.time + ' min';
-    document.getElementById('problemStatement').textContent = randomChallenge.statement;
-    
+    document.getElementById('challengeTitle').textContent = challenge.title;
+    document.getElementById('challengeDifficulty').textContent = challenge.difficulty;
+    document.getElementById('challengePoints').textContent = challenge.points + ' pts';
+    document.getElementById('challengeTime').textContent = challenge.time + ' min';
+    document.getElementById('problemStatement').textContent = challenge.statement;
+
     // Update examples
-    const example = randomChallenge.examples[0];
+    const example = challenge.examples[0] || {
+        input: 'N/A',
+        output: 'N/A',
+        explanation: 'No example available for this challenge yet.'
+    };
     document.getElementById('example1Input').textContent = example.input;
     document.getElementById('example1Output').textContent = example.output;
     document.getElementById('example1Explanation').textContent = example.explanation;
-    
+
     // Update constraints
     const constraintsList = document.getElementById('constraintsList');
     constraintsList.innerHTML = '';
-    randomChallenge.constraints.forEach(constraint => {
+    challenge.constraints.forEach(constraint => {
         const li = document.createElement('li');
         li.textContent = constraint;
         constraintsList.appendChild(li);
     });
-    
+
+    // Reset hints for the newly selected challenge
+    for (let i = 1; i <= 3; i++) {
+        const hintElement = document.getElementById(`hint${i}`);
+        const hintText = hintElement ? hintElement.querySelector('p') : null;
+
+        if (hintElement) {
+            hintElement.style.display = 'none';
+        }
+
+        if (hintText) {
+            hintText.textContent = challenge.hints[i - 1] || 'No additional hint available.';
+        }
+    }
+
     // Load starter code
     const language = document.getElementById('languageSelect').value;
-    document.getElementById('codeEditor').value = randomChallenge.starterCode[language];
+    document.getElementById('codeEditor').value = challenge.starterCode[language] || '';
+
+    // Reset challenge-specific workspace content
+    document.getElementById('customInput').value = example.input;
+    document.getElementById('outputContent').innerHTML = '<div class="output-placeholder">Run your code to see output...</div>';
 }
 
 // (sidebar helper removed to restore original file state)
@@ -1206,8 +1334,7 @@ function skipProblem() {
 
 function endTimeTrial() {
     alert('Time Trial Complete! Great job!');
-    document.getElementById('timeTrialInterface').style.display = 'none';
-    document.querySelector('.practice-modes').style.display = 'block';
+    switchPracticeView(null, true);
 }
 
 // Add CSS styles for output

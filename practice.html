@@ -212,9 +212,28 @@
             </div>
         </div>
 
+        <!-- Challenge Picker -->
+        <div class="challenge-picker-section" id="challengePickerSection" style="display: none;">
+            <div class="container">
+                <div class="challenge-picker-header">
+                    <button class="btn-back" type="button" onclick="backToDifficultySelection()">
+                        <i class="fas fa-arrow-left"></i> Change Difficulty
+                    </button>
+                    <h2 class="section-title challenge-picker-title" id="challengePickerTitle">Choose a Challenge</h2>
+                    <p class="challenge-picker-subtitle" id="challengePickerSubtitle">Select a question to open the editor and start solving.</p>
+                </div>
+                <div class="challenge-picker-grid" id="challengePickerGrid"></div>
+            </div>
+        </div>
+
         <!-- Challenge Interface -->
         <div class="challenge-interface" id="challengeInterface" style="display: none;">
             <div class="container">
+                <div class="challenge-interface-toolbar">
+                    <button class="btn-back" type="button" onclick="backToChallengePicker()">
+                        <i class="fas fa-arrow-left"></i> Back to Challenges
+                    </button>
+                </div>
                 <div class="challenge-layout">
                     <!-- Left Panel - Problem Description -->
                     <div class="problem-panel">
