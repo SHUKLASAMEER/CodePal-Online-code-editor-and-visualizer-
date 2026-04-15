@@ -1,17 +1,18 @@
-# TODO: Add Login Authentication with MongoDB
+# Revert practice.html to Landing Page + Styling Improvements
 
-## Completed Tasks
-- [x] Analyze project structure and plan backend integration
-- [x] Get user approval for Node.js + MongoDB approach
-- [x] Update index.html to add Login button in navbar
-- [x] Add login and register modals to index.html
+**Status:** Planning complete
 
-## Pending Tasks
-- [x] Create package.json for Node.js backend dependencies
-- [x] Create server.js for Express server setup
-- [x] Create models/user.js for User schema with Mongoose
-- [x] Create routes/auth.js for authentication endpoints (register, login)
-- [x] Update scripts/main.js to handle login/logout UI
-- [ ] Install Node.js and npm (required for running the backend)
-- [ ] Test authentication flow
-- [ ] Install dependencies and run server
+**Step 1: [TODO] Create TODO.md** - Done ✅
+
+**Step 2: [TODO] Replace practice.html content** - Copy index.html hero + cards layout, remove practice sections
+
+**Step 3: [TODO] Enhance styling in styles/practice.css** - Glassmorphism cards, hover effects, shadows, VSCode-like polish, green accent
+
+**Step 4: [TODO] Update links/scripts** - Keep practice.js linked, navbar 'Practice' active
+
+**Step 5: [TODO] Test responsiveness** - Mobile/tablet stack, smooth hovers
+
+**Step 6: [COMPLETE] Live demo** - Open practice.html
+
+**Next:** Step 2 - Replace practice.html
+

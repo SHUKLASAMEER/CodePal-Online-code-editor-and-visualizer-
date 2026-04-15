@@ -3,13 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodePal - Practice Mode</title>
+    <title>CodePal - Practice</title>
     <script>
-        // REDIRECT TO HOME PAGE ON REFRESH
-        if (performance.navigation.type === 1) {
-            window.location.href = 'index.html';
-        }
-        
         // Force page to load at top
         window.addEventListener('load', () => {
             window.scrollTo(0, 0);
@@ -59,397 +54,78 @@
         </div>
     </nav>
 
-    <div class="practice-container">
-        <!-- Header Section -->
-        <div class="practice-header">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h1 class="practice-title">
-                            <i class="fas fa-brain"></i> Practice Mode
+    <section class="hero-section section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            Master Data Structures<br/>
+                            Through Visualization
                         </h1>
-                        <p class="practice-subtitle">Master algorithms through real coding challenges, time trials, and custom testing</p>
+                        <p class="hero-subtitle">
+                            Practice complex data structures and algorithms through interactive visualizations. 
+                            Watch memory allocation, track variable changes, and debug your code in real-time.
+                        </p>
+                        <a href="#features" class="btn btn-primary btn-lg">
+                            Start Practice <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
                     </div>
-                    <div class="col-md-4">
-                        <div class="practice-stats">
-                            <div class="stat-item">
-                                <span class="stat-number" id="totalChallenges">25</span>
-                                <span class="stat-label">Challenges</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature-grid">
+                        <!-- Data Structure Cards -->
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-layer-group"></i>
                             </div>
-                            <div class="stat-item">
-                                <span class="stat-number" id="completedChallenges">0</span>
-                                <span class="stat-label">Completed</span>
+                            <h3>Arrays</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-link"></i>
                             </div>
-                            <div class="stat-item">
-                                <span class="stat-number" id="userLevel">1</span>
-                                <span class="stat-label">Level</span>
+                            <h3>Linked Lists</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-tree"></i>
                             </div>
+                            <h3>Trees</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h3>Graphs</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-memory"></i>
+                            </div>
+                            <h3>Stacks/Queues</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <h3>Hash Tables</h3>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-bug"></i>
+                            </div>
+                            <h3>Debug Mode</h3>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Mode Selection -->
-        <div class="practice-modes">
-            <div class="container">
-                <h2 class="section-title">Choose Your Practice Mode</h2>
-                <div class="mode-grid">
-                    <div class="mode-card" onclick="startCodeChallenges()">
-                        <div class="mode-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Code Challenges</h3>
-                        <p>Solve real coding problems with hints and multiple difficulty levels</p>
-                        <div class="mode-features">
-                            <span><i class="fas fa-lightbulb"></i> Hints Available</span>
-                            <span><i class="fas fa-trophy"></i> Points System</span>
-                            <span><i class="fas fa-chart-line"></i> Progress Tracking</span>
-                        </div>
-                    </div>
-
-                    <div class="mode-card" onclick="startTimeTrials()">
-                        <div class="mode-icon">
-                            <i class="fas fa-stopwatch"></i>
-                        </div>
-                        <h3>Time Trials</h3>
-                        <p>Test your speed with time-limited algorithm challenges</p>
-                        <div class="mode-features">
-                            <span><i class="fas fa-clock"></i> 5-30 Min Rounds</span>
-                            <span><i class="fas fa-fire"></i> Speed Training</span>
-                            <span><i class="fas fa-medal"></i> Leaderboard</span>
-                        </div>
-                    </div>
-
-                    <div class="mode-card" onclick="startCustomTesting()">
-                        <div class="mode-icon">
-                            <i class="fas fa-flask"></i>
-                        </div>
-                        <h3>Custom Testing</h3>
-                        <p>Test algorithms with your own input data and edge cases</p>
-                        <div class="mode-features">
-                            <span><i class="fas fa-edit"></i> Custom Input</span>
-                            <span><i class="fas fa-bug"></i> Debug Mode</span>
-                            <span><i class="fas fa-chart-bar"></i> Performance</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-background">
+            <div class="gradient-circle"></div>
+            <div class="pattern-grid"></div>
         </div>
-
-        <!-- Difficulty Selection -->
-        <div class="difficulty-section" id="difficultySection" style="display: none;">
-            <div class="container">
-                <h2 class="section-title">Select Difficulty Level</h2>
-                <div class="difficulty-grid">
-                    <div class="difficulty-card beginner" onclick="selectDifficulty('beginner')">
-                        <div class="difficulty-header">
-                            <i class="fas fa-seedling"></i>
-                            <h3>Beginner</h3>
-                            <span class="difficulty-level">Level 1-3</span>
-                        </div>
-                        <ul class="difficulty-features">
-                            <li>Basic operations</li>
-                            <li>Simple algorithms</li>
-                            <li>Guided solutions</li>
-                            <li>Full hints available</li>
-                        </ul>
-                        <div class="difficulty-stats">
-                            <span>8 Challenges</span>
-                            <span>⭐ Easy</span>
-                        </div>
-                    </div>
-
-                    <div class="difficulty-card intermediate" onclick="selectDifficulty('intermediate')">
-                        <div class="difficulty-header">
-                            <i class="fas fa-tree"></i>
-                            <h3>Intermediate</h3>
-                            <span class="difficulty-level">Level 4-6</span>
-                        </div>
-                        <ul class="difficulty-features">
-                            <li>Complex data structures</li>
-                            <li>Multiple approaches</li>
-                            <li>Partial hints</li>
-                            <li>Edge case focus</li>
-                        </ul>
-                        <div class="difficulty-stats">
-                            <span>10 Challenges</span>
-                            <span>⭐⭐ Medium</span>
-                        </div>
-                    </div>
-
-                    <div class="difficulty-card advanced" onclick="selectDifficulty('advanced')">
-                        <div class="difficulty-header">
-                            <i class="fas fa-mountain"></i>
-                            <h3>Advanced</h3>
-                            <span class="difficulty-level">Level 7-9</span>
-                        </div>
-                        <ul class="difficulty-features">
-                            <li>Optimization problems</li>
-                            <li>Minimal hints</li>
-                            <li>Performance focus</li>
-                            <li>Real interview style</li>
-                        </ul>
-                        <div class="difficulty-stats">
-                            <span>5 Challenges</span>
-                            <span>⭐⭐⭐ Hard</span>
-                        </div>
-                    </div>
-
-                    <div class="difficulty-card expert" onclick="selectDifficulty('expert')">
-                        <div class="difficulty-header">
-                            <i class="fas fa-crown"></i>
-                            <h3>Expert</h3>
-                            <span class="difficulty-level">Level 10</span>
-                        </div>
-                        <ul class="difficulty-features">
-                            <li>No hints available</li>
-                            <li>Time constraints</li>
-                            <li>Complex optimizations</li>
-                            <li>Production-level code</li>
-                        </ul>
-                        <div class="difficulty-stats">
-                            <span>2 Challenges</span>
-                            <span>⭐⭐⭐⭐ Expert</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Challenge Interface -->
-        <div class="challenge-interface" id="challengeInterface" style="display: none;">
-            <div class="container">
-                <div class="challenge-layout">
-                    <!-- Left Panel - Problem Description -->
-                    <div class="problem-panel">
-                        <div class="panel-header">
-                            <h3 id="challengeTitle">Challenge Title</h3>
-                            <div class="challenge-meta">
-                                <span class="difficulty-badge" id="challengeDifficulty">Beginner</span>
-                                <span class="points-badge" id="challengePoints">100 pts</span>
-                                <span class="time-badge" id="challengeTime">15 min</span>
-                            </div>
-                        </div>
-                        
-                        <div class="problem-content">
-                            <div class="problem-description">
-                                <h4>Problem Statement</h4>
-                                <p id="problemStatement">Loading problem...</p>
-                            </div>
-                            
-                            <div class="problem-examples">
-                                <h4>Examples</h4>
-                                <div class="example-block">
-                                    <h5>Example 1:</h5>
-                                    <div class="example-input">
-                                        <strong>Input:</strong> <code id="example1Input">[2,7,11,15], 9</code>
-                                    </div>
-                                    <div class="example-output">
-                                        <strong>Output:</strong> <code id="example1Output">[0,1]</code>
-                                    </div>
-                                    <div class="example-explanation">
-                                        <strong>Explanation:</strong> <span id="example1Explanation">Because nums[0] + nums[1] == 9, we return [0, 1].</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="problem-constraints">
-                                <h4>Constraints</h4>
-                                <ul id="constraintsList">
-                                    <li>2 ≤ nums.length ≤ 10^4</li>
-                                    <li>-10^9 ≤ nums[i] ≤ 10^9</li>
-                                    <li>-10^9 ≤ target ≤ 10^9</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="hints-section">
-                                <h4>Hints <button class="btn-hint" onclick="showHint(1)"><i class="fas fa-lightbulb"></i></button></h4>
-                                <div class="hint-content" id="hint1" style="display: none;">
-                                    <p>Try using a hash map to store seen numbers and their indices.</p>
-                                </div>
-                                <div class="hint-content" id="hint2" style="display: none;">
-                                    <p>Can you solve it in one pass? Think about complement numbers.</p>
-                                </div>
-                                <div class="hint-content" id="hint3" style="display: none;">
-                                    <p>The optimal solution has O(n) time complexity and O(n) space complexity.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Panel - Code Editor -->
-                    <div class="code-panel">
-                        <div class="panel-header">
-                            <h3>Your Solution</h3>
-                            <div class="editor-controls">
-                                <select class="language-select" id="languageSelect">
-                                    <option value="javascript">JavaScript</option>
-                                    <option value="python">Python</option>
-                                    <option value="java">Java</option>
-                                    <option value="cpp">C++</option>
-                                </select>
-                                <button class="btn-run" onclick="runCode()">
-                                    <i class="fas fa-play"></i> Run Code
-                                </button>
-                                <button class="btn-submit" onclick="submitSolution()">
-                                    <i class="fas fa-check"></i> Submit
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="code-editor">
-                            <textarea id="codeEditor" placeholder="// Write your solution here
-function twoSum(nums, target) {
-    // Your code here
-}">// Write your solution here
-function twoSum(nums, target) {
-    // Your code here
-}</textarea>
-                        </div>
-                        
-                        <!-- Custom Input Section -->
-                        <div class="custom-input-section">
-                            <h4>Custom Test Input</h4>
-                            <div class="input-controls">
-                                <textarea id="customInput" placeholder="Enter custom input here...">[2,7,11,15]
-9</textarea>
-                                <button class="btn-test" onclick="testCustomInput()">
-                                    <i class="fas fa-flask"></i> Test Custom Input
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Output Section -->
-                        <div class="output-section">
-                            <h4>Output</h4>
-                            <div class="output-content" id="outputContent">
-                                <div class="output-placeholder">Run your code to see output...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Custom Testing Interface -->
-        <div class="custom-testing-interface" id="customTestingInterface" style="display: none;">
-            <div class="container">
-                <div class="custom-testing-header">
-                    <h2><i class="fas fa-flask"></i> Custom Testing Mode</h2>
-                    <p>Test algorithms with your own input data and edge cases</p>
-                </div>
-                
-                <div class="custom-testing-content">
-                    <div class="algorithm-selector">
-                        <h3>Select Algorithm</h3>
-                        <select id="algorithmSelect" class="form-select" onchange="loadAlgorithm()">
-                            <option value="">Choose an algorithm...</option>
-                            <option value="twoSum">Two Sum</option>
-                            <option value="reverseString">Reverse String</option>
-                            <option value="isValid">Valid Parentheses</option>
-                            <option value="maxSubArray">Maximum Subarray</option>
-                            <option value="binarySearch">Binary Search</option>
-                            <option value="climbStairs">Climbing Stairs</option>
-                            <option value="containsDuplicate">Contains Duplicate</option>
-                            <option value="isPalindrome">Palindrome Number</option>
-                        </select>
-                    </div>
-                    
-                    <div class="algorithm-info" id="algorithmInfo" style="display: none;">
-                        <h3 id="algorithmTitle">Algorithm Name</h3>
-                        <p id="algorithmDescription">Algorithm description will appear here...</p>
-                        
-                        <div class="code-section">
-                            <h4>Implementation</h4>
-                            <div class="code-editor">
-                                <textarea id="algorithmCode" placeholder="Algorithm code will appear here..."></textarea>
-                            </div>
-                        </div>
-                        
-                        <div class="input-section">
-                            <h4>Custom Input</h4>
-                            <div class="input-controls">
-                                <textarea id="customTestInput" placeholder="Enter your test input here..."></textarea>
-                                <div class="input-examples">
-                                    <h5>Example Inputs:</h5>
-                                    <div id="inputExamples"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="test-controls">
-                            <button class="btn-run-custom" onclick="runCustomTest()">
-                                <i class="fas fa-play"></i> Run Test
-                            </button>
-                            <button class="btn-debug" onclick="debugCode()">
-                                <i class="fas fa-bug"></i> Debug Mode
-                            </button>
-                            <button class="btn-performance" onclick="testPerformance()">
-                                <i class="fas fa-chart-bar"></i> Performance Test
-                            </button>
-                            <button class="btn-reset-custom" onclick="resetCustomTest()">
-                                <i class="fas fa-rotate"></i> Reset
-                            </button>
-                        </div>
-                        
-                        <div class="output-section">
-                            <h4>Output</h4>
-                            <div class="output-content" id="customOutput">
-                                <div class="output-placeholder">Run your algorithm with custom input to see output...</div>
-                            </div>
-                        </div>
-                        
-                        <div class="debug-section" id="debugSection" style="display: none;">
-                            <h4>Debug Information</h4>
-                            <div class="debug-content" id="debugContent">
-                                <div class="debug-placeholder">Debug mode will show step-by-step execution...</div>
-                            </div>
-                        </div>
-                        
-                        <div class="performance-section" id="performanceSection" style="display: none;">
-                            <h4>Performance Metrics</h4>
-                            <div class="performance-content" id="performanceContent">
-                                <div class="performance-placeholder">Performance test results will appear here...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Time Trial Interface -->
-        <div class="time-trial-interface" id="timeTrialInterface" style="display: none;">
-            <div class="container">
-                <div class="time-trial-header">
-                    <h2><i class="fas fa-stopwatch"></i> Time Trial Mode</h2>
-                    <div class="timer-display">
-                        <span id="timeRemaining">05:00</span>
-                    </div>
-                </div>
-                
-                <div class="time-trial-content">
-                    <div class="trial-problem">
-                        <h3 id="trialProblemTitle">Loading problem...</h3>
-                        <p id="trialProblemDesc">Problem description will appear here...</p>
-                    </div>
-                    
-                    <div class="trial-code">
-                        <textarea id="trialCodeEditor" placeholder="Write your solution quickly..."></textarea>
-                    </div>
-                    
-                    <div class="trial-controls">
-                        <button class="btn-submit-trial" onclick="submitTrialSolution()">
-                            <i class="fas fa-flag-checkered"></i> Submit Solution
-                        </button>
-                        <button class="btn-skip" onclick="skipProblem()">
-                            <i class="fas fa-forward"></i> Skip Problem
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -480,27 +156,27 @@ function twoSum(nums, target) {
     <!-- Register Modal -->
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content" style="background-color: var(--card-bg) !important; border: 1px solid var(--border-color) !important; border-radius: 16px !important;">
-                <div class="modal-header" style="background-color: var(--card-bg) !important; border-bottom: 1px solid var(--border-color) !important;">
-                    <h5 class="modal-title" style="color: var(--accent-color) !important; font-weight: 600 !important;">Sign Up</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1) !important;"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Sign Up</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="background-color: var(--card-bg) !important;">
+                <div class="modal-body">
                     <form id="registerForm">
                         <div class="mb-3">
-                            <label for="registerUsername" class="form-label" style="color: var(--accent-color) !important; font-weight: 500 !important;">Username</label>
-                            <input type="text" class="form-control" id="registerUsername" required style="background-color: var(--primary-bg) !important; color: #ffffff !important; border: 1px solid var(--border-color) !important; border-radius: 8px !important;">
+                            <label for="registerUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="registerUsername" required>
                         </div>
                         <div class="mb-3">
-                            <label for="registerEmail" class="form-label" style="color: var(--accent-color) !important; font-weight: 500 !important;">Email address</label>
-                            <input type="email" class="form-control" id="registerEmail" required style="background-color: var(--primary-bg) !important; color: #ffffff !important; border: 1px solid var(--border-color) !important; border-radius: 8px !important;">
+                            <label for="registerEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
                         </div>
                         <div class="mb-3">
-                            <label for="registerPassword" class="form-label" style="color: var(--accent-color) !important; font-weight: 500 !important;">Password</label>
-                            <input type="password" class="form-control" id="registerPassword" required style="background-color: var(--primary-bg) !important; color: #ffffff !important; border: 1px solid var(--border-color) !important; border-radius: 8px !important;">
-                            <p style="color: #ffffff !important; font-size: 0.9rem !important; margin: 8px 0 0 0 !important; padding: 10px !important; background-color: #1a1a1a !important; border: 2px solid #ffffff !important; border-radius: 6px !important; display: block !important; opacity: 1 !important; font-weight: 600 !important; text-align: left !important;">Password must be at least 8 characters and include uppercase, lowercase, number and special character.</p>
+                            <label for="registerPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="registerPassword" required>
+                            <small class="form-text text-muted">Password must be at least 8 characters and include uppercase, lowercase, number and special character.</small>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-signup" style="background-color: var(--accent-color) !important; border: none !important; padding: 12px 24px !important; border-radius: 8px !important; font-weight: 600 !important; font-size: 1rem !important; width: 100% !important; transition: all 0.3s ease !important;">Register Now</button>
+                        <button type="submit" class="btn btn-primary btn-signup">Register</button>
                     </form>
                 </div>
             </div>
