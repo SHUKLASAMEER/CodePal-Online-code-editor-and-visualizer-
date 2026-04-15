@@ -5,24 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodePal - Learning</title>
     <script>
-        // REDIRECT TO HOME PAGE ON REFRESH
-        if (performance.navigation.type === 1) {
-            // Page was refreshed, redirect to home
-            window.location.href = 'index.html';
-        }
-        
-        // SIMPLE: Force page to load at top only once
-        let hasLoaded = false;
+        // Keep the user on the current page when reloading, but reset scroll position.
         window.addEventListener('load', () => {
-            if (hasLoaded) return;
-            hasLoaded = true;
-            
-            // Force to top immediately
             window.scrollTo(0, 0);
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
-            
-            // Prevent scroll restoration
+
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
             }
